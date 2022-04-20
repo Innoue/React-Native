@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
 
 function Movie(props) {
     return( 
-        <View styles={styles.card}>  
+        <View style={styles.card}>  
             {/* Image */}
-            <View>
-                <Image
-                source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+            <View style={{flex:1}}>
+                <Image style={{width:20, height:20}}
+                source={{uri: 'https://legalsolucoes.com/wp-content/uploads/2019/05/legal.png'}}
                 />
             </View>
             {/* Name and Button */}

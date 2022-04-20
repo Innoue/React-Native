@@ -6,16 +6,15 @@ import api from './services/api';
 import { createPortal } from "react-dom";
 
 export default function App() {
-  // const [movies, setMovies] = useState(null)
-  // const apiConsume = async () => {
-  //   const response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=51e0824a`);
-  //   const data = await response.json();
-  //   return data;
-  // };
-  // useEffect(() => {
-  //   console.log(apiConsume().then(data => {setMovies(data)}))
-  //   console.log(movies.Title)
-  // }, [])
+  const [movies, setMovies] = useState(null)
+
+  useEffect(async() => {
+    await api.get("batman")
+    .then(response => {
+      setMovies(response.data)
+    })
+  }, [])
+  
   return (
     <View style={styles.container}>
       <Movie/>
