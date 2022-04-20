@@ -1,33 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Movie from './movie';
 import api from './services/api';
-import { createPortal } from "react-dom";
 
 export default function App() {
-  const [movies, setMovies] = useState(null)
+  const [movies, setMovies] = useState([]);
 
-  useEffect(async() => {
-    await api.get("batman")
-    .then(response => {
-      setMovies(response.data)
-    })
-  }, [])
-  
+  useEffect(async () => {
+    await api.get("batman").then((response) => {
+      setMovies(response.data.Search);
+    });
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Movie/>
-      <StatusBar style="auto" />
-    </View>
+    <ScrollView style={styles.container}>
+      {movies.map((item) => <Movie uri={item.Poster} title={item.Title}/>)}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#ededed',
   },
 });

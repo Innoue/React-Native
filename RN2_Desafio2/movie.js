@@ -1,39 +1,27 @@
-import React from 'react'
-import {Text, Image, View, Button, StyleSheet} from 'react-native'
-
-const styles = StyleSheet.create({
-    card: {
-      width:500,
-      height:500,
-      backgroundColor: 'pink',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
+import React, { useState, useEffect, View } from "react";
+import { StyleSheet } from "react-native";
+import { Card, Button, Title } from "react-native-paper";
+import api from "./services/api";
 
 function Movie(props) {
-    return( 
-        <View style={styles.card}>  
-            {/* Image */}
-            <View style={{flex:1}}>
-                <Image style={{width:20, height:20}}
-                source={{uri: 'https://legalsolucoes.com/wp-content/uploads/2019/05/legal.png'}}
-                />
-            </View>
-            {/* Name and Button */}
-            <View>
-                <View>
-                    <Text>{props.Title}</Text>
-                </View>
-                <View>
-                    <Button
-                        title="Press me!"
-                    />
-                </View>
-            </View>
-        </View>
-    )
+  return (
+    <Card mode="outlined" style={{margin:20, borderRadius:10}}>
+      <Card.Cover source={{ uri: props.uri }} />
+      <Card.Content>
+        <Title>{props.title}</Title>
+      </Card.Content>
+    </Card>
+  );
 }
 
-export default Movie
+export default Movie;
 
+const styles = StyleSheet.create({
+  card: {
+    width: 500,
+    height: 500,
+    backgroundColor: "pink",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

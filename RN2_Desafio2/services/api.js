@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://api.tvmaze.com/search/shows?q=",
+  baseURL: "http://www.omdbapi.com/?&apikey=51e0824a&s=",
 });
 
 export default api;
