@@ -1,4 +1,1 @@
-[
-  { "id": 1, "usuario": "Rodrigo", "senha": "123" },
-  { "id": 2, "usuario": "Larissa", "senha": "123" }
-]
+[{"id":1,"usuario":"Rodrigo 123","senha":"123"},{"id":2,"usuario":"Larissa","senha":"123"},{"id":3,"usuario":"Augusto","senha":"123"}]
