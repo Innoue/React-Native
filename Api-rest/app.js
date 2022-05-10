@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const fs = require('fs/promises')
 const jwt = require('jsonwebtoken')
+const userSchema = require('./userSchema')
+require('./mongoose')()
+
 
 app.use(express.json())
 
@@ -26,8 +29,11 @@ app.use((req,res,next) =>{
 })
 
 app.get('/auth',async(req,res) => {
-  const file = JSON.parse(await fs.readFile('./user.json', 'utf-8'))
-  const [userExists] = file.filter((users) => users.usuario == req.body.usuario &&  users.senha == req.body.senha)
+  const {user, password} = req.body
+
+  const userExists = await userSchema.findOne({
+    user, password
+  })
 
   if(!userExists)
     return res.status(404).json({message: 'Usuário inválido'})
@@ -38,51 +44,28 @@ app.get('/auth',async(req,res) => {
 })
 
 app.get('/users',async(req,res) => {
-  const file = JSON.parse(await fs.readFile('./user.json', 'utf-8'))
-  res.status(200).json(file)
+  const user = await userSchema.find()
+  res.status(200).json(user)
 })
 
 app.get('/users/:id',async(req,res) => {
-  const file = JSON.parse(await fs.readFile('./user.json', 'utf-8'))
-  const user = file.filter((users) => users.id == req.params.id)
-  res.status(200).json(user.shift())
+  const user = await userSchema.findById(req.params.id)
+  res.status(200).json(user)
 })
 
 app.post('/users',async(req,res) => {
-  const file = JSON.parse(await fs.readFile('./user.json', 'utf-8'))
-  let id = 1
-  if(file.length > 0)
-    id = parseInt(file[file.length - 1].id) + 1
-
-  file.push({id, ...req.body})  
-  await fs.writeFile('./user.json', JSON.stringify(file))
-  res.status(200).json(req.body)
+  const user = await userSchema.create(req.body)
+  res.status(200).json(user)
 })
 
 app.put('/users/:id',async(req,res) => {
-  const file = JSON.parse(await fs.readFile('./user.json', 'utf-8'))
-  
-  file.map((value, index)=>{
-    if(value.id == req.params.id){
-      file[index] = {id: value.id, ...req.body}
-    }
-  })
-
-  await fs.writeFile('./user.json', JSON.stringify(file))
-  res.status(200).json(req.body)
+  const user = await userSchema.findByIdAndUpdate(req.params.id, req.body)
+  res.status(200).json(user)
 })
 
 app.delete('/users/:id',async(req,res) => {
-  const file = JSON.parse(await fs.readFile('./user.json', 'utf-8'))
-  
-  file.map((value, index)=>{
-    if(value.id == req.params.id){
-      file.splice(index, 1)
-    }
-  })
-
-  await fs.writeFile('./user.json', JSON.stringify(file))
-  res.status(200).json(req.body)
+  const user = await userSchema.findByIdAndDelete(req.params.id)
+  res.status(200).json(user)
 })
 
 app.listen(3000, () => console.log('Started API...'))
