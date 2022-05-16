@@ -5,7 +5,8 @@ import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-n
 let controller = null
 export default function App() {
   const [timer, setTimer] = useState(0.0)
-  const [lastTime, setLastTime] = useState(0)
+  const [lastTime, setLastTime] = useState(0.0)
+  let sec = 0
 
   const go = () =>{  
     if(controller != null){
@@ -13,12 +14,11 @@ export default function App() {
       clearInterval(controller)
       controller = null;
     }else{
-      controller = setInterval( ()=> {        
-        setTimer(timer + 0.1)
-        console.log(timer)
+      controller = setInterval( ()=> { 
+        sec += 0.1
+        setTimer(a)
       }, 100);
     }
-    
   }
 
   const clear = () =>{
@@ -48,7 +48,7 @@ export default function App() {
         </TouchableOpacity>
       </View>
       <Text style={styles.textLastTimer}>
-        {lastTime > 0 ? 'Last time: ' + lastTime : ''}
+        {lastTime > 0 ? 'Last time: ' + lastTime.toFixed(2) : ''}
       </Text>
     </View>
   );
