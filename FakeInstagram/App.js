@@ -95,11 +95,10 @@ const styles = StyleSheet.create({
     height: 55,
     padding: 10,
     paddingVertical: 20,
-    // elevation: 1,
-    borderBottomWidth: 0.2,
+    // borderBottomWidth: 0.2,
     borderTopColor: null,
-    shadowColor: '#000'
-
+    shadowColor: '#000',
+    elevation: 1,
   },
   logo:{
     
