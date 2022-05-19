@@ -30,7 +30,7 @@ export default function App() {
         descricao: 'Bora trabalhar Haha', 
         imgperfil: 'https://sujeitoprogramador.com/instareact/fotoPerfil3.png', 
         imgPublicacao: 'https://sujeitoprogramador.com/instareact/foto3.png',  
-        likeada: false, 
+        likeada: true, 
         likers: 3
       },
       {
@@ -48,7 +48,7 @@ export default function App() {
         descricao: 'Boa tarde galera do insta...', 
         imgperfil: 'https://sujeitoprogramador.com/instareact/fotoPerfil2.png', 
         imgPublicacao: 'https://sujeitoprogramador.com/instareact/foto5.png',
-        likeada: false, 
+        likeada: false,
         likers: 32
       }
     ]
