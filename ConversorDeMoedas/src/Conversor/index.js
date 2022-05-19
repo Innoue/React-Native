@@ -1,24 +1,36 @@
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import api from '../../services/api';
 
 export default function Conversor(props) {
-  const [currencyA, setCurrencyA] = useState(props.currencyA)
-  const [currencyB, setCurrencyB] = useState(props.currencyB)
   const [currency, setCurrency] = useState('')
+  const [result, setResult] = useState('')
+  
+
+  async function convert(){
+    let currencyRequest = props.currencyA + '_' + props.currencyB
+    const response = await api.get('convert?q=' +  currencyRequest + '&compact=ultra&apiKey=1db6265c78f03ddac2db')
+    let value = parseFloat(response.data[currencyRequest]) * currency
+    setResult(value)
+    Keyboard.dismiss()
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{currencyA} para {currencyB}</Text>
+      <Text style={styles.text}>{props.currencyA} para {props.currencyB}</Text>
       <TextInput
         onChangeText={text => setCurrency(text)}
         value={currency.toString()}
         keyboardType='numeric'
         style={styles.input}
       />
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity 
+        style={styles.btn}
+        onPress={convert}
+      >
         <Text style={styles.btnText}>Calcular</Text>
       </TouchableOpacity>
-      <Text style={styles.result}>Resultado</Text>
+      <Text style={styles.result}>{Number(result).toFixed(2)}</Text>
     </View>
   );
 }
@@ -48,6 +60,7 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: '#c74e64',
     padding: 10,
+    paddingHorizontal: 30,
     borderRadius: 10
   },
   btnText:{

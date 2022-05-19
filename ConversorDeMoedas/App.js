@@ -6,6 +6,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Conversor currencyA='USD' currencyB='BRL' />
+      <Conversor currencyA='BRL' currencyB='USD' />
     </View>
   );
 }
