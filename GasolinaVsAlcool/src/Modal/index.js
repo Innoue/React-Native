@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Text, StyleSheet, View, Image, TouchableOpacity, Button } from 'react-native';
+import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+
 export default function GasVsAlcool(props) {
   function calcWorth(){
     let result = Number(props.alcool) / Number(props.gas)

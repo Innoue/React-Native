@@ -4,13 +4,13 @@ import GasVsAlcool from './src/Modal';
 
 export default function App() {
   const [visible, setVisible] = useState(false)
-  const [alcool, setAlcool] = useState(0)
-  const [gas, setGas] = useState(0)
+  const [alcool, setAlcool] = useState('')
+  const [gas, setGas] = useState('')
 
   const close = function(){
     setVisible(false)
-    setAlcool(0)
-    setGas(0)
+    setAlcool('')
+    setGas('')
   }
 
   function enter(){
@@ -25,7 +25,6 @@ export default function App() {
     setVisible(true)
   }
 
-  
   return (
     <View style={styles.container}>
       <Image
@@ -44,7 +43,7 @@ export default function App() {
         <TextInput
           style={styles.input}
           onChangeText={text => setAlcool(text)}
-          value={alcool}
+          value={alcool.toString()}
           keyboardType='numeric'
         />
       </View>
@@ -55,7 +54,7 @@ export default function App() {
         <TextInput
           style={styles.input}
           onChangeText={text => setGas(text)}
-          value={gas}
+          value={gas.toString()}
           keyboardType='numeric'
         />
       </View>
