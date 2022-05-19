@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Text, StyleSheet, View, Image, TouchableOpacity, Button } from 'react-native';
 export default function GasVsAlcool(props) {
-  function sair(){
-    
+  function calcWorth(){
+    let result = Number(props.alcool) / Number(props.gas)
+    if(result < 0.7)
+      return 'Álcool'
+    else
+      return 'Gasolina'
   }
   return (
     <View style={styles.container}>
@@ -11,12 +15,12 @@ export default function GasVsAlcool(props) {
         style={styles.img}
       />
       <Text style={styles.greenText}>
-        Compensa usar @variavel
+        Compensa usar {calcWorth()}
       </Text>
       <View style={styles.containerText}>
         <Text style={[styles.textBold, styles.text]}>Com os preços:</Text>
-        <Text style={styles.text}>Álcool: R$ price</Text>
-        <Text style={styles.text}>Gasolina: R$ price</Text>
+        <Text style={styles.text}>Álcool: R$ {Number(props.alcool).toFixed(2)}</Text>
+        <Text style={styles.text}>Gasolina: R$ {Number(props.gas).toFixed(2)}</Text>
       </View>
       <TouchableOpacity 
         style={{flexDirection: 'row'}}

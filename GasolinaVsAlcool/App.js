@@ -1,14 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Image,Text, View, Modal, Button, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image,Text, View, Modal, TextInput,ToastAndroid, TouchableOpacity } from 'react-native';
 import GasVsAlcool from './src/Modal';
 
 export default function App() {
   const [visible, setVisible] = useState(false)
+  const [alcool, setAlcool] = useState(0)
+  const [gas, setGas] = useState(0)
 
-  function entrar(){
+  const close = function(){
+    setVisible(false)
+    setAlcool(0)
+    setGas(0)
+  }
+
+  function enter(){
+    if (alcool <= 0){
+      ToastAndroid.show("Insira o preço do álcool!", ToastAndroid.LONG);
+      return
+    } 
+    if (gas <= 0){
+      ToastAndroid.show("Insira o preço da gasolina!", ToastAndroid.LONG);
+      return
+    }
     setVisible(true)
   }
+
+  
   return (
     <View style={styles.container}>
       <Image
@@ -26,6 +43,8 @@ export default function App() {
       <View style={styles.containerInput}>
         <TextInput
           style={styles.input}
+          onChangeText={text => setAlcool(text)}
+          value={alcool}
           keyboardType='numeric'
         />
       </View>
@@ -35,11 +54,13 @@ export default function App() {
       <View style={styles.containerInput}>
         <TextInput
           style={styles.input}
+          onChangeText={text => setGas(text)}
+          value={gas}
           keyboardType='numeric'
         />
       </View>
       <TouchableOpacity 
-        onPress={entrar}
+        onPress={enter}
         style={[styles.containerInput]} 
       >
         <View style={styles.touchable}>
@@ -53,12 +74,8 @@ export default function App() {
         transparent={true}
         visible={visible}
       >
-        <GasVsAlcool close={() => setVisible(false)}/>
+        <GasVsAlcool gas={gas} alcool={alcool} close={close}/>
       </Modal>
-      {/* <Button
-        title='Aperte'
-        
-      /> */}
     </View>
   );
 }
