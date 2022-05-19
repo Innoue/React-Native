@@ -6,6 +6,7 @@ let controller = null
 export default function App() {
   const [timer, setTimer] = useState(0.0)
   const [lastTime, setLastTime] = useState(0.0)
+  const [textGoStop, setTextGoStop] = useState('GO')
   let sec = 0
 
   const go = () =>{  
@@ -13,10 +14,12 @@ export default function App() {
       setLastTime(timer)
       clearInterval(controller)
       controller = null;
+      setTextGoStop('GO')
     }else{
+      setTextGoStop('STOP')
       controller = setInterval( ()=> { 
         sec += 0.1
-        setTimer(a)
+        setTimer(sec)
       }, 100);
     }
   }
@@ -39,7 +42,7 @@ export default function App() {
         <TouchableOpacity 
           onPress={go}
           style={styles.btn}>
-          <Text style={styles.textBtn}>GO</Text>
+          <Text style={styles.textBtn}>{textGoStop}</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           onPress={clear}
