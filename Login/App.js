@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import HomeLogin from './src/pages/HomeLogin';
 import Home from './src/pages/Home';
 
 export default function App() {
@@ -11,6 +12,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen 
+          name="HomeLogin"
+          component={HomeLogin} 
+          options={{
+             headerShown: false
+          }} 
+        />
         <Stack.Screen 
           name="Home"
           component={Home} 

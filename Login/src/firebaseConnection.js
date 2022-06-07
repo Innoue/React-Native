@@ -1,8 +1,8 @@
-import firebase from 'firebase/app'
-import 'firebase/database'
-import 'firebase/auth'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/database'
+import 'firebase/compat/auth'
 
-const firebaseConfig = {
+let firebaseConfig = {
   apiKey: "AIzaSyCaU6CwHgDnwJWE7s33nqFi2N8Xl9-7a_0",
   authDomain: "fir-app-969f5.firebaseapp.com",
   databaseURL: "https://fir-app-969f5.firebaseio.com",
@@ -12,9 +12,9 @@ const firebaseConfig = {
   appId: "1:410115304411:web:578d63b8fef94216ae15fe"
 };
 
-if(!firebase.getApps.length){
-  //Open connection
-  firebase.initializeApp(firebaseConfig)
+if(!firebase.apps.length){
+  //Open Connection
+  firebase.initializeApp(firebaseConfig);
 }
 
 export default firebase
