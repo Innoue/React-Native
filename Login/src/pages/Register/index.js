@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import firebase from '../../firebaseConnection'
 
-export default function HomeLogin() {
+export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState('')
@@ -13,9 +13,10 @@ export default function HomeLogin() {
   const navigation = useNavigation()
 
   async function signIn(){
-    await firebase.auth().signInWithEmailAndPassword(email, password)
+    await firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((value) => {
       setUser(value.user.email)
+      setEmail('')
       navigation.navigate('Home', {email: email})
     })
     .catch((error) =>{
@@ -23,6 +24,7 @@ export default function HomeLogin() {
       console.log(error)
       return
     })
+    setPassword('')
   }
 
   return (
@@ -46,13 +48,7 @@ export default function HomeLogin() {
         style={styles.button}
         onPress={signIn}
         >
-        <Text style={styles.btnText}>Acessar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        style={{marginTop: 15}}
-        onPress={()=>{navigation.navigate('Register')}}
-        >
-        <Text style={[styles.text, {fontSize: 20}]}>Não possue login? Cadastre-se</Text>
+        <Text style={styles.btnText}>Cadastrar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -64,6 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: -175
   },
   input:{
     marginVertical: 15,
