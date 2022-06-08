@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import firebase from "../../services/firebaseConnection"
 
 export default function Cadastro(){
@@ -8,9 +8,30 @@ export default function Cadastro(){
   const [password, setPassword] = useState('')
 
   const navigation = useNavigation()
+  const route = useRoute()
+
+  useEffect(() =>{
+    setEmail(route.params?.email ? route.params?.email : '')
+  },[])
+
+  async function cadastrar(){
+    await firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((value) => {
+      firebase.database().ref('users').child(value.user.uid).set({email: email})
+      alert(value.user.uid)
+      navigation.navigate('Home')  
+      setEmail('')
+      setPassword('')
+    })
+    .catch((err) => {
+      alert("Aconteceu algum erro, tente novamente" )
+      setPassword('')
+      console.log(err)
+    })
+  }
 
   function goToLogin(){
-    navigation.navigate('Login')
+    navigation.navigate('Login', {email: email})
   }
 
   return(
@@ -36,13 +57,11 @@ export default function Cadastro(){
       <View style={styles.areaBtn}>
         <TouchableOpacity 
           style={styles.handleLogin}
-          onPress={() => {}}
+          onPress={cadastrar}
         >
           <Text style={styles.textBtn}>Cadastrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={goToLogin}
-        >
+        <TouchableOpacity onPress={goToLogin}>
           <Text style={{textAlign: 'center', fontSize: 20, marginTop: 15}}>Já possuo uma conta</Text>
         </TouchableOpacity>
       </View>

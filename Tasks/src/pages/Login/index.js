@@ -9,8 +9,24 @@ export default function Login(){
 
   const navigation = useNavigation()
 
+  async function login(){
+    await firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((value) =>{
+      alert(value.user.uid)
+      navigation.navigate('Home')
+      setEmail('')
+      setPassword('')
+    })
+    .catch((err) => {
+      alert("Aconteceu algum erro, tente novamente" )
+      setPassword('')
+      console.log(err)
+    })
+
+  }
+
   function goToCadastro(){
-    navigation.navigate('Cadastro')
+    navigation.navigate('Cadastro',{email: email})
   }
 
   return(
@@ -36,13 +52,11 @@ export default function Login(){
       <View style={styles.areaBtn}>
         <TouchableOpacity 
           style={styles.handleLogin}
-          onPress={() => {}}
+          onPress={login}
         >
           <Text style={styles.textBtn}>Acessar</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={goToCadastro}
-        >
+        <TouchableOpacity onPress={goToCadastro}>
           <Text style={{textAlign: 'center', fontSize: 20, marginTop: 15}}>Criar uma conta</Text>
         </TouchableOpacity>
       </View>
