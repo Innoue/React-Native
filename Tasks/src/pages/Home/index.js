@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, SafeAreaView, StatusBar, Keyboard } from "react-native";
 import TaskList from '../../components/TaskList'
 import firebase from  '../../services/firebaseConnection'
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function Home(){
   const [taskList, setTaskList] = useState([])
@@ -47,6 +48,12 @@ export default function Home(){
     refInput.current.focus()
   }
 
+  function cancelEdit(){
+    setKeyUpdate('')
+    setNewTask('')
+    Keyboard.dismiss()
+  }
+
   function addItem(){
     if(newTask == '')
       return
@@ -84,6 +91,14 @@ export default function Home(){
   
   return(
     <SafeAreaView style={[styles.AndroidSafeArea, styles.container]}>
+      {keyUpdate.length > 0 && (
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity style={{marginVertical: 10, paddingLeft: 10}} onPress={cancelEdit}>
+            <FontAwesome name="remove" size={25} color="#9c2222" />
+          </TouchableOpacity>
+          <Text style={{color:"#9c2222", fontSize: 18}}> Você esta editando uma tarefa!</Text>
+        </View>
+      )}
       <View style={styles.areaInput}>
         <TextInput
           style={styles.input}
@@ -114,14 +129,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
-    paddingTop: 20,
+    marginTop: 25,
     paddingHorizontal: 20
   },  
   areaInput:{
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'center',
-    marginTop: 30,
     marginHorizontal: 10
   },
   input:{
