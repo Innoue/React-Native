@@ -93,7 +93,10 @@ export default function Home(){
     <SafeAreaView style={[styles.AndroidSafeArea, styles.container]}>
       {keyUpdate.length > 0 && (
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity style={{marginVertical: 10, paddingLeft: 10}} onPress={cancelEdit}>
+          <TouchableOpacity 
+            style={{marginVertical: 10, paddingLeft: 10}} 
+            onPress={cancelEdit}
+          >
             <FontAwesome name="remove" size={25} color="#9c2222" />
           </TouchableOpacity>
           <Text style={{color:"#9c2222", fontSize: 18}}> Você esta editando uma tarefa!</Text>

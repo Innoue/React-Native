@@ -12,7 +12,6 @@ export default function Login(){
   async function login(){
     await firebase.auth().signInWithEmailAndPassword(email, password)
     .then((value) =>{
-      alert(value.user.uid)
       navigation.navigate('Home', {uid: value.user.uid})
       setEmail('')
       setPassword('')
@@ -22,7 +21,6 @@ export default function Login(){
       setPassword('')
       console.log(err)
     })
-
   }
 
   function goToCadastro(){

@@ -18,7 +18,6 @@ export default function Cadastro(){
     await firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((value) => {
       firebase.database().ref('users').child(value.user.uid).set({email: email})
-      alert(value.user.uid)
       navigation.navigate('Home', {uid: value.user.uid})  
       setEmail('')
       setPassword('')
@@ -100,5 +99,4 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 22
   },
-  
 });
