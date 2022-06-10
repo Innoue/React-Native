@@ -7,6 +7,7 @@ import firebase from  '../../services/firebaseConnection'
 export default function Home(){
   const [taskList, setTaskList] = useState([])
   const [newTask, setNewTask] = useState('')
+  const [keyUpdate, setKeyUpdate] = useState('')
   const [update, setUpdate] = useState(false)
   const route = useRoute()
   const refInput = useRef()
@@ -42,6 +43,7 @@ export default function Home(){
 
   function editItem(data){
     setNewTask(data.name)
+    setKeyUpdate(data.key)
     refInput.current.focus()
   }
 
@@ -49,8 +51,23 @@ export default function Home(){
     if(newTask == '')
       return
 
+    if(!keyUpdate == ''){
+      tasks.child(keyUpdate).update({
+        name: newTask
+      })
+      .then(()=>{
+        setUpdate(!update)
+        setNewTask('')
+        setKeyUpdate('')
+        Keyboard.dismiss()
+      })
+      .catch((err) => {
+        alert("Algo deu errado, tente novamente")
+        console.log(err)
+      })
+      return
+    }
     let key = tasks.push().key
-
     tasks.child(key).set({
       name: newTask
     })
