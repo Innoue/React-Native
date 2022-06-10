@@ -19,7 +19,7 @@ export default function Cadastro(){
     .then((value) => {
       firebase.database().ref('users').child(value.user.uid).set({email: email})
       alert(value.user.uid)
-      navigation.navigate('Home')  
+      navigation.navigate('Home', {uid: value.user.uid})  
       setEmail('')
       setPassword('')
     })

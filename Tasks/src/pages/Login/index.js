@@ -13,7 +13,7 @@ export default function Login(){
     await firebase.auth().signInWithEmailAndPassword(email, password)
     .then((value) =>{
       alert(value.user.uid)
-      navigation.navigate('Home')
+      navigation.navigate('Home', {uid: value.user.uid})
       setEmail('')
       setPassword('')
     })

@@ -12,13 +12,13 @@ function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Cadastro" component={Cadastro} />
 
       </Stack.Navigator>
     </NavigationContainer>

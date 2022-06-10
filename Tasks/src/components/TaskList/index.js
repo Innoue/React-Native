@@ -2,14 +2,14 @@ import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function TaskList(props){
+export default function TaskList({data, deleteItem, editItem}){
   return(
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => deleteItem(data.key)}>
         <FontAwesome name="trash-o" size={24} color="white" />
       </TouchableOpacity>
-      <TouchableWithoutFeedback>
-        <Text style={styles.text}>{props.data.name}</Text>
+      <TouchableWithoutFeedback onPress={() => editItem(data)}>
+        <Text style={styles.text}>{data.name}</Text>
       </TouchableWithoutFeedback>
     </View>
   )
