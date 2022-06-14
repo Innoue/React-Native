@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { 
   Background,
@@ -9,10 +10,10 @@ import {
   SubmitText,
   Link,
   LinkText 
-} from './styles'
-import { useNavigation } from "@react-navigation/native";
+} from '../SignIn/styles'
 
-export default function SignIn(){
+export default function SignUp(){
+  const [nome, setNome] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
@@ -21,7 +22,15 @@ export default function SignIn(){
   return (
     <Background>
       <Container>
-        <Logo source={require('../../assets/Logo.png')}/>
+        <AreaInput>
+          <Input
+            placeholder='Nome'
+            autoCorrect={false}
+            autoCapitalize='none'
+            value={nome}
+            onChangeText={(text)=> setNome(text)}
+          />
+        </AreaInput>
         <AreaInput>
           <Input
             placeholder='Email'
@@ -42,11 +51,8 @@ export default function SignIn(){
           />
         </AreaInput>
         <SubmitButton>
-          <SubmitText>Acessar</SubmitText>
+          <SubmitText>Cadastrar</SubmitText>
         </SubmitButton>
-        <Link>
-          <LinkText onPress={() => navigation.navigate('SignUp')}>Criar uma conta</LinkText>
-        </Link>
       </Container>
     </Background>
   )

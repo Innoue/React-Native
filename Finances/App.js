@@ -7,7 +7,8 @@ import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer style={styles.container}>
+      <StatusBar backgroundColor="#131313" barStyle="light-content"/>
       <Routes/>
     </NavigationContainer>
   );
@@ -15,9 +16,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#131313',
   },
 });
