@@ -8,6 +8,7 @@ LogBox.ignoreAllLogs(true)
 
 function AuthProvider({ children }){
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
     async function getUser(){
@@ -15,9 +16,11 @@ function AuthProvider({ children }){
       .then((value)=>{
         let dataUser = JSON.parse(value)
         setUser(dataUser)
+        setLoading(false)
       })
       .catch((err)=>{
         console.log('Async Storage error ' + err.code)
+        setLoading(false)
       })
     }
     getUser()
@@ -83,7 +86,7 @@ function AuthProvider({ children }){
   }
 
   return(
-    <AuthContext.Provider value={{signed: !!user, user, signUp, signIn}}>
+    <AuthContext.Provider value={{signed: !!user, user, signUp, signIn, loading}}>
       { children }
     </AuthContext.Provider>
   )
