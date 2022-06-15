@@ -26,16 +26,6 @@ function AuthProvider({ children }){
     getUser()
   },[])
 
-  async function storageUser(data){
-    await AsyncStorage.setItem('auth_user', JSON.stringify(data))
-    .then(()=>{
-      
-    })
-    .catch((err)=>{
-      console.log('Async Storage error ' + err.code)
-    })
-  }
-
   async function signUp(email, password, name){
     await firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(async (value)=>{
@@ -85,8 +75,26 @@ function AuthProvider({ children }){
     })
   }
 
+  async function signOut(){
+    await firebase.auth().signOut()
+    await AsyncStorage.clear()
+    .then(()=>{
+      setUser(null)
+    })
+  }
+
+  async function storageUser(data){
+    await AsyncStorage.setItem('auth_user', JSON.stringify(data))
+    .then(()=>{
+      
+    })
+    .catch((err)=>{
+      console.log('Async Storage error ' + err.code)
+    })
+  }
+
   return(
-    <AuthContext.Provider value={{signed: !!user, user, signUp, signIn, loading}}>
+    <AuthContext.Provider value={{signed: !!user, user, loading, signUp, signIn, signOut}}>
       { children }
     </AuthContext.Provider>
   )
