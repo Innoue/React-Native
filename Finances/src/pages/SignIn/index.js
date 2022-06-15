@@ -17,13 +17,12 @@ export default function SignIn(){
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
-  const { user } = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext)
 
   const navigation = useNavigation()
 
   function handleLogin(){
-    console.log(user.uid)
-    console.log(user.name)
+    signIn(email, password)
   }
 
   return (
