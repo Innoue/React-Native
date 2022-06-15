@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/auth";
 import { 
   Background,
   Container,
@@ -13,11 +14,17 @@ import {
 } from '../SignIn/styles'
 
 export default function SignUp(){
-  const [nome, setNome] = useState()
+  const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
   const navigation = useNavigation()
+  const { signUp } = useContext(AuthContext)
+
+  function handleSignUp(){
+    signUp(email, password, name)
+  }
+  
 
   return (
     <Background>
@@ -27,8 +34,8 @@ export default function SignUp(){
             placeholder='Nome'
             autoCorrect={false}
             autoCapitalize='none'
-            value={nome}
-            onChangeText={(text)=> setNome(text)}
+            value={name}
+            onChangeText={(text)=> setName(text)}
           />
         </AreaInput>
         <AreaInput>
@@ -50,7 +57,7 @@ export default function SignUp(){
             onChangeText={(text)=> setPassword(text)}
           />
         </AreaInput>
-        <SubmitButton>
+        <SubmitButton onPress={handleSignUp}>
           <SubmitText>Cadastrar</SubmitText>
         </SubmitButton>
       </Container>
