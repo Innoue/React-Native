@@ -23,6 +23,16 @@ function AuthProvider({ children }){
     getUser()
   },[])
 
+  async function storageUser(data){
+    await AsyncStorage.setItem('auth_user', JSON.stringify(data))
+    .then(()=>{
+      
+    })
+    .catch((err)=>{
+      console.log('Async Storage error ' + err.code)
+    })
+  }
+
   async function signUp(email, password, name){
     await firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(async (value)=>{
@@ -37,13 +47,8 @@ function AuthProvider({ children }){
           email: email,
           uid: uid
         }
-        await AsyncStorage.setItem('auth_user', JSON.stringify(data))
-        .then(()=>{
-          setUser(data)
-        })
-        .catch((err)=>{
-          console.log('Async Storage error ' + err.code)
-        })
+        setUser(data)
+        storageUser(data)
       })
       .catch((err)=>{
         console('Firebase error ' + err.code)
@@ -65,13 +70,8 @@ function AuthProvider({ children }){
           name: snapshot.val().name,
           email: value.user.email,
         }
-        await AsyncStorage.setItem('auth_user', JSON.stringify(data))
-        .then(()=>{
-          setUser(data)
-        })
-        .catch((err)=>{
-          console.log('Async Storage error ' + err.code)
-        })
+        storageUser(data)
+        setUser(data)
       })
       .catch((err)=>{
         console('Firebase error ' + err.code)
