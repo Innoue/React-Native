@@ -44,11 +44,11 @@ function AuthProvider({ children }){
         storageUser(data)
       })
       .catch((err)=>{
-        console('Firebase error ' + err.code)
+        console.log('Firebase error ' + err.code)
       })
     })
     .catch((err) =>{
-      console('Auth error ' + err.code)
+      console.log('Auth error ' + err.code)
     })
   }
 
@@ -67,11 +67,11 @@ function AuthProvider({ children }){
         setUser(data)
       })
       .catch((err)=>{
-        console('Firebase error ' + err.code)
+        console.log('Firebase error ' + err.code)
       })
     })
     .catch((err) =>{
-      console('Auth error ' + err.code)
+      console.log('Auth error ' + err.code)
     })
   }
 
