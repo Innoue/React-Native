@@ -1,16 +1,30 @@
-import React, { useContext } from "react";
-import { View, Text, Button } from "react-native";
-import { AuthContext } from "../../contexts/auth";
+import React, { useState } from "react";
+
+import {Background, Container, TextName, TextBalance, TextTitle, List} from './styles'
+
+import RecordsList from "../../components/RecordsList";
 
 export default function Home(){
-  const { user, signOut } = useContext(AuthContext)
+  const [records, useRecords] = useState([
+    {key: '1', type:'receita', value:1200},    
+    {key: '2', type:'despesa', value:900},    
+    {key: '3', type:'receita', value:1548},    
+    {key: '4', type:'receita', value:1022},    
+    {key: '5', type:'receita', value:100.12},    
+  ])
   return (
-    <View>
-      <Text>Home</Text>
-      <Button
-        title="Logout"
-        onPress={()=> signOut()}
+    <Background>
+      <Container>
+        <TextName>Rodrigo</TextName>
+        <TextBalance>123</TextBalance>
+      </Container>
+      <TextTitle>Últimas movimentações</TextTitle>
+      <List
+        showsVerticalScrollIndicator={false}
+        key={item => item.key}
+        data={records}
+        renderItem={({item}) => (<RecordsList data={item}/>)}
       />
-    </View>
+    </Background>
   )
 }
